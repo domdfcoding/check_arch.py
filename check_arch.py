@@ -6,7 +6,7 @@ from typing import Tuple
 from consolekit import click_command, option
 from consolekit.options import flag_option
 from dist_meta.distributions import iter_distributions
-from domdf_python_tools.words import Plural, word_join
+from domdf_python_tools.words import Plural, PluralPhrase, word_join
 from natsort import natsorted
 from packaging.tags import parse_tag, platform_tags
 
@@ -14,8 +14,10 @@ supported_tags = set(platform_tags())
 supported_tags.add("any")
 # supported_tags = set()
 
-_platforms = Plural("platform", "platforms")
-_is_are = Plural("is", "are")
+_supported_platforms = PluralPhrase(
+		"The {} it supports {}",
+		(Plural("platform", "platforms"), Plural("is", "are")),
+		)
 
 
 def print_tags(ctx, param, tags: bool = False):
@@ -41,7 +43,7 @@ def check(path: Tuple[str, ...]) -> int:
 			num_tags = len(wheel_platform_tags)
 			print(
 					f"WARNING: {dist.name} {dist.version} is not supported by this platform.\n",
-					f"        The {_platforms(num_tags)} it supports {_is_are(num_tags)} {word_join(sorted(wheel_platform_tags), use_repr=True)}"
+					f"        {_supported_platforms(num_tags)} {word_join(sorted(wheel_platform_tags), use_repr=True)}."
 					)
 			ret = 1
 
