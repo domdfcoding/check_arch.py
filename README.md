@@ -1,3 +1,11 @@
+# 301 Moved Permanently
+
+`check_arch.py` can now be found [here](https://github.com/repo-helper/dist-meta/tree/master/recipes/check_arch)
+
+https://github.com/repo-helper/dist-meta/tree/master/recipes/check_arch
+
+-----
+
 # check_arch.py
 
 Quick script to check installed wheels have the correct architecture.
